@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<title>Document</title>
+	<link type="text/css" rel="stylesheet" href="css/reset.css">
+	<link type="text/css" rel="stylesheet" href="css/common.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/animate.css">
+	<link rel="stylesheet" type="text/css" href="fonts/iconfont.css">
+	<link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+</head>
+<body>
+	<header>头部</header>
+	<main>
+		<div id="wrapper">
+			<div id="scroller">
+				<div class="one">下拉刷新</div>
+				<ul>
+					<li>我自横刀向天笑,笑完之后睡大觉！</li>
+					<li>我自横刀向天笑,笑完之后睡大觉！</li>
+					<li>我自横刀向天笑,笑完之后睡大觉！</li>
+					<li>我自横刀向天笑,笑完之后睡大觉！</li>
+					<li>我自横刀向天笑,笑完之后睡大觉！</li>
+					<li>我自横刀向天笑,笑完之后睡大觉！</li>
+					<li>我自横刀向天笑,笑完之后睡大觉！</li>
+					<li>我自横刀向天笑,笑完之后睡大觉！</li>
+					<li>我自横刀向天笑,笑完之后睡大觉！</li>
+					<li>我自横刀向天笑,笑完之后睡大觉！</li>
+					<li>我自横刀向天笑,笑完之后睡大觉！</li>
+					<li>我自横刀向天笑,笑完之后睡大觉！</li>
+					<li>我自横刀向天笑,笑完之后睡大觉！</li>
+					<li>我自横刀向天笑,笑完之后睡大觉！</li>
+					<li>我自横刀向天笑,笑完之后睡大觉！</li>
+				</ul>
+				<div class="two">上拉加载</div>
+			</div>
+		</div>
+	</main>
+	<footer>页脚</footer>
+	<script type="text/javascript" src="js/zepto.min.js"></script>
+	<script type="text/javascript" src="js/iscroll-4.2.5.js"></script>
+	<script type="text/javascript">
+		var myScroll=new iScroll('wrapper',{
+			scrollbars:true,
+			topOffset:30,
+			fadeScrollbar:true,
+			onScrollMove:function(){
+				if(this.y>5&&!$('.one').hasClass('flag')){
+					$('.one').text('释放刷新')
+					$('.one').addClass('flag')
+				}else if(this.y<this.maxScrollY-30 && !$('.two').hasClass('flag')){
+					$('.two').html('释放刷新')
+					$('.two').addClass('flag')
+				}
+			},
+			onScrollEnd:function(){
+				if($('.one').hasClass('flag')){
+					$('.one').text('正在加载')
+					$('.one').removeClass('flag').addClass('loading')
+					refreshTopPage()
+				}else if($('.two').hasClass('flag')){
+					$('.two').text('正在加载')
+					$('.two').removeClass('flag').addClass('loading')
+					refreshDownPage()
+				}
+			},
+			onRefresh:function(){
+				if($('.one').hasClass('loading')){
+					$('.one').text('下拉刷新')
+					$('.one').removeClass('loading')
+				}else if($('.two').hasClass('loading')){
+					$('.two').text('上拉刷新')
+					$('.two').removeClass('loading')
+				}
+			}
+		})
+		function refreshTopPage(){
+			$('ul').prepend('<li>最新消息哦！！！</li>')
+			myScroll.refresh()
+		}
+		var num=0;
+		function refreshDownPage(){
+			$('ul').append('<li>这是更多消息'+(++num)+'</li>')
+			myScroll.refresh()
+		}
+	</script>
+</body>
+</html>
